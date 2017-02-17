@@ -1,0 +1,57 @@
+<project name="log4j2-test" default="dist" basedir=".">
+    <description>
+        Log4j example
+    </description>
+    <!-- set global properties for this build -->
+    <property name="src" location="src"/>
+    <property name="build" location="build"/>
+    <property name="dist" location="dist"/>
+    
+    <target name="init">
+        <!-- Create the time stamp -->
+        <tstamp/>
+        <!-- Create the build directory structure used by compile -->
+        <mkdir dir="${build}"/>
+    </target>
+    
+    <path id="compile.classpath">
+        <fileset dir="lib" includes="**/log4j/*.jar" />
+    </path>
+ 
+    
+    <target name="compile" depends="init"
+        description="compile the source">
+        <!-- Compile the java code from ${src} into ${build} -->
+        <javac srcdir="${src}" destdir="${build}" includeAntRunTime= "false" classpathref="compile.classpath"/>
+    </target>
+    
+    
+    <target name="dist" depends="compile"
+        description="generate the distribution">
+        <!-- Create the distribution directory -->
+        <mkdir dir="${dist}"/>
+        
+        <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
+        <jar jarfile="${dist}/log4j-test.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="com.dineshsriram.Log4jExample.Log4jExample" />
+            </manifest>
+        </jar>
+    </target>
+    
+    <target name="run" depends="dist">
+        <java classname="com.dineshsriram.Log4jExample.Log4jExample" fork="true">
+            <classpath>
+                <path refid="compile.classpath"/>
+                <path location="dist/log4j-test.jar"/>
+            </classpath>
+        </java>
+    </target>
+    
+    <target name="clean"
+        description="clean up">
+        <!-- Delete the ${build} and ${dist} directory trees -->
+        <delete dir="${build}"/>
+        <delete dir="${dist}"/>
+    </target>
+</project>
