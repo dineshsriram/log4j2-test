@@ -4,6 +4,7 @@
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
+    <property name="conf" location="conf"/>
     <property name="build" location="build"/>
     <property name="dist" location="dist"/>
     
@@ -33,6 +34,7 @@
         
         <!-- Put everything in ${build} into the MyProject-${DSTAMP}.jar file -->
         <jar jarfile="${dist}/log4j-test.jar" basedir="${build}">
+            <fileset dir="conf" />
             <manifest>
                 <attribute name="Main-Class" value="com.dineshsriram.Log4jExample.Log4jExample" />
             </manifest>

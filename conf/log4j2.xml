@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Configuration status="WARN">
+    <Properties>
+        <Property name="LOG_DIR">/home/dsriram1/scratch/log4j2-test/</Property>
+    </Properties>
+    <Appenders>
+        <File name="FILE" fileName="${LOG_DIR}/app.example.${date:yyyy-MM-dd}.log">
+            <PatternLayout pattern="%d{ISO8601} %p [%c{1}:%t] - %m%n" />
+        </File>
+
+        <Console name="STDOUT" target="SYSTEM_OUT">
+            <PatternLayout pattern="%p [%c{1}:%t] - %m%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="INFO">
+            <AppenderRef ref="FILE" />
+            <AppenderRef ref="STDOUT" level="WARN" />
+        </Root>
+    </Loggers>
+</Configuration>
